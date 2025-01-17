@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
 #include <Windows.h>
 
 using namespace std;
@@ -25,7 +26,7 @@ int intCheck(int num, int max) {
     return num;
 }
 
-bool sortingPoPrice(const book& a, const book& b) {
+bool sortingPoPrice(const book a, const book b) {
     return a.price < b.price;
 }
 
@@ -52,22 +53,23 @@ int main() {
     int choice;
 
     do {
-        cout << "Меню:" << endl;
+        cout << "Введите номер действия из списка, которое хотите совершить:" << endl;
         cout << "1. Показать книги" << endl;
         cout << "2. Добавить новую книгу" << endl;
         cout << "3. Отсортировать по цене (от min до max)" << endl;
         cout << "4. Добавить книги из другого файла" << endl;
         cout << "5. Удалить книгу" << endl;
         cout << "6. Выход" << endl;
+        cout << "Введите значение: ";
 
         cin >> choice;
         choice = intCheck(choice, 6);
 
         switch (choice) {
         case 1: {
-            cout << "Книга \t \t Автор \t \t Издательство \t Год \t Стоимость" << endl;
+            cout << left << setw(5) << "№" << setw(20) << "Книга" << setw(20) << "Автор" << setw(20) << "Издательство" << setw(10) << "Год" << setw(10) << "Стоимость" << endl;
             for (int i = 0; i < books.size(); i++) {
-                cout << i + 1 << ". " << books[i].name << "\t \t " << books[i].author << "\t \t " << books[i].publish << "\t " << books[i].year << "\t " << books[i].price << endl;
+                cout << left << setw(5) << i + 1 << setw(20) << books[i].name << setw(20) << books[i].author << setw(20) << books[i].publish << setw(10) << books[i].year << setw(10) << books[i].price << endl;
             }
             break;
         }
@@ -104,8 +106,9 @@ int main() {
             else {
                 sort(books.begin(), books.end(), sortingPoPrice);
                 cout << "Книги отсортированы по цене (от min до max):" << endl;
+                cout << left << setw(5) << "№" << setw(20) << "Книга" << setw(20) << "Автор" << setw(20) << "Издательство" << setw(10) << "Год" << setw(10) << "Стоимость" << endl;
                 for (int i = 0; i < books.size(); i++) {
-                    cout << i + 1 << ". " << books[i].name << "\t \t " << books[i].author << "\t \t " << books[i].publish << "\t " << books[i].year << "\t " << books[i].price << endl;
+                    cout << left << setw(5) << i + 1 << setw(20) << books[i].name << setw(20) << books[i].author << setw(20) << books[i].publish << setw(10) << books[i].year << setw(10) << books[i].price << endl;
                 }
             }
             break;
@@ -141,7 +144,7 @@ int main() {
             }
             break;
         }
-        case 5: { 
+        case 5: {
             if (books.empty()) {
                 cout << "Список книг пуст!" << endl;
             }
@@ -149,10 +152,10 @@ int main() {
                 cout << "Введите номер книги для удаления: ";
                 int bookNumber;
                 cin >> bookNumber;
-                bookNumber = intCheck(bookNumber, books.size()); 
+                bookNumber = intCheck(bookNumber, books.size());
 
                 if (bookNumber >= 1 && bookNumber <= books.size()) {
-                    books.erase(books.begin() + bookNumber - 1); 
+                    books.erase(books.begin() + bookNumber - 1);
 
                     ofstream out(fileLocation);
                     if (out.is_open()) {
