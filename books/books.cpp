@@ -20,13 +20,13 @@ int intCheck(int num, int max) {
     while (cin.fail() || num < 0 || num > max) {
         cin.clear();
         cin.ignore(1000, '\n');
-        cout << "Ошибка! Введите число от 0 до " << max << ": ";
+        cout << "Ошибка! Введите число от 1 до " << max << ": ";
         cin >> num;
     }
     return num;
 }
 
-bool sortingPoPrice(const book a, const book b) {
+bool sortingPrice(const book a, const book b) {
     return a.price < b.price;
 }
 
@@ -35,7 +35,7 @@ int main() {
     SetConsoleOutputCP(1251);
 
     vector<book> books;
-    string fileLocation = "E:\\books.txt";
+    string fileLocation = "C:\\books.txt";
 
     ifstream in(fileLocation);
     if (in.is_open()) {
@@ -104,7 +104,7 @@ int main() {
                 cout << "Список книг пуст!" << endl;
             }
             else {
-                sort(books.begin(), books.end(), sortingPoPrice);
+                sort(books.begin(), books.end(), sortingPrice);
                 cout << "Книги отсортированы по цене (от min до max):" << endl;
                 cout << left << setw(5) << "№" << setw(20) << "Книга" << setw(20) << "Автор" << setw(20) << "Издательство" << setw(10) << "Год" << setw(10) << "Стоимость" << endl;
                 for (int i = 0; i < books.size(); i++) {
